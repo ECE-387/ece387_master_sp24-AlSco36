@@ -20,7 +20,6 @@ class Controller:
 		#TODO 3 initialize the appropriate Controller class attributes
 		#global activate
 		self.msg = Twist()
-
 		self.pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 
 		rospy.Subscriber('mouse_info', MouseController, self.callback_mouseControl)

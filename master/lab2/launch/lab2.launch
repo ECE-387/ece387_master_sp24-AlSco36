@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Bring up all local nodes first -->
+    
+  <!-- model to visualize the Turtlebot3 in RVIZ -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_model.launch"/>
+
+  <!-- controller to rotate the robot --> 
+  <node
+    name="controller" pkg="lab2" type="turtlebot_controller.py"
+    output="screen" launch-prefix="xterm -e"
+  />
+
+  <!-- remote nodes -->
+  <machine
+    name="robot0"
+    address="robot0"
+    env-loader="/home/pi/robot_ws/devel/remote_env_loader.sh"
+    default="true"
+    user="pi"
+  />
+
+  <!-- core functionality of the Turtlebot3 -->
+  <node machine="robot0" pkg="rosserial_python" type="serial_node.py" name="turtlebot3_core" output="screen">
+    <param name="port" value="/dev/ttyACM0"/>
+    <param name="baud" value="115200"/>
+  </node>
+
+</launch>
+
