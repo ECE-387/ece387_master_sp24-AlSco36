@@ -1,0 +1,14 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/dfec/master_ws/devel_isolated/lab1/lib/python3/dist-packages",
+        "/home/dfec/master_ws/devel_isolated/ice5/lib/python3/dist-packages",
+        "/home/dfec/master_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/dfec/master_ws/devel_isolated/lab1/lib/python3/dist-packages",
+        "/home/dfec/master_ws/devel_isolated/ice5/lib/python3/dist-packages",
+        "/home/dfec/master_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

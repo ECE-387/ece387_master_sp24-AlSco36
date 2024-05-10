@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/dfec/master_ws/devel_isolated/lab1/include/**",
+        "/home/dfec/master_ws/devel_isolated/ice5/include/**",
+        "/home/dfec/master_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/dfec/master_ws/src/ece387_master_sp24-AlSco36/master/module02/include/**",
+        "/home/dfec/master_ws/src/turtlebot3_simulations/turtlebot3_fake/include/**",
+        "/home/dfec/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

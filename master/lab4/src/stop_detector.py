@@ -59,7 +59,7 @@ class StopDetector(object):
             if(self.width):
                 distance = self.STOP_WIDTH*self.FOCAL/self.width
                 # print(distance)
-                self.msg = distance
+                self.msg.data = distance
                 self.pub.publish(self.msg)
 
     def shutdownhook(self):

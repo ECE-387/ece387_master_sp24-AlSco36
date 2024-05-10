@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="launch_prefix" default="" />
+    <arg name="node_namespace" default="apriltag_ros_continuous_node" />
+    <arg name="camera_name" default="/usb_cam" />
+    <arg name="image_topic" default="image_raw" />
+
+  <!-- Set parameters -->
+	<rosparam command="load" file="$(find apriltag_ros)/config/settings.yaml" ns="$(arg node_namespace)" />
+	<rosparam command="load" file="$(find apriltag_ros)/config/tags.yaml" ns="$(arg node_namespace)" />
+  
+
+  <!-- controller to rotate the robot --> 
+  <node
+    name="controller" pkg="final_project" type="finallllllProjecttttttFreeeeedommmmmm.py"
+    output="screen" launch-prefix="xterm -e"
+  />
+
+  <!-- remote nodes -->
+  <machine
+    name="robot12"
+    address="robot12"
+    env-loader="/home/pi/robot_ws/devel/remote_env_loader.sh"
+    default="true"
+    user="pi"
+  />
+
+  <!-- stop detector node -->
+  <node machine="robot12" name="stop_detector" pkg="lab4" type="stop_detector.py" output="screen">
+      <param name="detector" value="/home/pi/robot_ws/src/ece387_robot_sp24-AlSco36/robot/lab4/training_images/stop_detector.svm"/>
+  </node>
+
+  <!-- usb camera -->
+  <node machine="robot12" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+      <param name="video_device" value="/dev/video0" />
+      <param name="image_width" value="640" />
+      <param name="image_height" value="480" />
+      <param name="pixel_format" value="yuyv" />
+      <param name="camera_frame_id" value="usb_cam" />
+      <param name="io_method" value="mmap"/>
+  </node>
+
+  <!-- apriltag_ros -->
+      <node machine="robot12" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="$(arg node_namespace)" clear_params="true">
+      <!-- Remap topics from those used in code to those on the ROS network -->
+      <remap from="image_rect" to="$(arg camera_name)/$(arg image_topic)" />
+      <remap from="camera_info" to="$(arg camera_name)/camera_info" />
+      <param name="publish_tag_detections_image" type="bool" value="true" />      <!-- default: false -->
+      </node>
+
+  <!-- core functionality of the Turtlebot3 -->
+  <node machine="robot12" pkg="rosserial_python" type="serial_node.py" name="turtlebot3_core" output="screen">
+    <param name="port" value="/dev/ttyACM0"/>
+    <param name="baud" value="115200"/>
+  </node>
+
+  <arg name="set_frame_id" default="base_scan"/>
+
+  <node machine="robot12" pkg="hls_lfcd_lds_driver" type="hlds_laser_publisher" name="turtlebot3_lds" output="screen">
+    <param name="port" value="/dev/ttyUSB0"/>
+    <param name="frame_id" value="$(arg set_frame_id)"/>
+  </node>
+
+</launch>
